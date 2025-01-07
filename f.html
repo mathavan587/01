@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice PDF Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/polyfills.umd.js"></script>
+</head>
+
+<body>
+    <button id="generateInvoice">Generate Invoice PDF</button>
+
+    <script>
+        document.getElementById('generateInvoice').addEventListener('click', () => {
+            const { jsPDF } = window.jspdf;
+
+            // Create a new jsPDF instance
+            const doc = new jsPDF();
+            // const image = new Image();
+            //     image.src="c:/Users/Admin/Desktop/nutz.png";
+            //     doc.addImage(image,"png",0,0);
+            //   console.log(doc);
+            // Add title and header
+            doc.setFontSize(18);
+            doc.text("Invoice", 105, 20, { align: "center" });
+            doc.setFillColor(0, 0, 0); // RGB for black
+            doc.rect(0, 0, 250, 10, 'F'); // 'F' for fill            
+            doc.setFillColor(242, 243, 242); // RGB for light blue
+            doc.rect(0, 10, 220, 40, 'F'); // 'F' for fill            
+
+            doc.setFontSize(10);
+            var x = 80;
+            // doc.rect(x, y, width, height, style);
+            // doc.text("Company Name", x, 20);
+            //doc.text(text, x, y, options, transform);
+            // doc.addImage(imageData, format, x, y, width, height, alias, compression, rotation);
+
+            // doc.addImage('c:/Users/Admin/Desktop/nutz.png', 'PNG', x, 25 - 5, 100, 100);
+            doc.setFont("helvetica", "bold");
+            doc.text("Address :", x, 25 - 5);
+            doc.setFont("helvetica", "normal");
+            doc.text("2nd Floor, KPP Complex, Palayapalayam", x + 17, 25 - 5);
+            doc.text("Tamil Nadu - 638 011", x += 16, 32 - 5);
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(18);
+            doc.text("MEMO BILL", 170, 25 - 5);
+            doc.setFontSize(10);
+            doc.line(0, 20, 0, 20);  // x1, y1, x2, y2
+            doc.setFont("helvetica", "normal");
+            doc.setFont("helvetica", "bold");   
+            doc.text("DATE :", 170, 25 + 5);
+            doc.setFont("helvetica", "normal");
+            doc.text("02/01/2025", 186, 25 + 5);
+            doc.line(170, 31, 204, 31);
+            doc.setFont("helvetica", "bold");
+            doc.text("BILL NO :", 170, 25 + 10);
+            doc.setFont("helvetica", "normal");
+            doc.text(" 025", 186, 25 + 10);
+            doc.line(170, 36, 192, 36);
+            // doc.text("BILL NO", 170, 25-5);
+            doc.setFont("helvetica", "bold");
+            doc.text("Mobile  : ", x -= 16, 38 - 5);
+            doc.setFont("helvetica", "normal");
+            doc.text("+91 96987 39898", x + 15, 38 - 5);
+            doc.setFont("helvetica", "bold");
+            doc.text("Email  : ", x, 44 - 5);
+            doc.setFont("helvetica", "normal");
+            doc.text("contact@nutz.in", x + 15, 44 - 5);
+            doc.setFont("helvetica", "bold");
+            doc.text("Websit  : ", x, 50 - 5);
+            doc.setFont("helvetica", "normal");
+            doc.text("www.nutz.in", x += 15, 50 - 5);
+            doc.setFontSize(12);
+            // Add customer details
+            doc.setFont("helvetica", "bold");
+            doc.text("BILL TO ", 10, 58);
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(10);
+
+            // Draw underline
+            // doc.setLineWidth(0.5); // Adjust the line thickness
+            doc.setDrawColor(0, 0, 0); // Set line color (black)
+            doc.line(10, 59, 25, 59); // x1, y1, x2, y2
+            doc.setFont("helvetica", "bold");
+            doc.text("Company Name :", 10, 64);
+            doc.setFont("helvetica", "normal");
+            doc.text("nutz", 50, 64);
+            doc.setFont("helvetica", "bold");
+            doc.text("Email :", 10, 70);
+            doc.setFont("helvetica", "normal");
+            doc.text("Nill", 50, 70);
+            doc.setFont("helvetica", "bold");
+            doc.text("Websit :", 10, 76);
+            doc.setFont("helvetica", "normal");
+            doc.text("Nill", 50, 76);
+            doc.setFont("helvetica", "bold");
+            doc.text("Mobile :", 10, 82);
+            doc.setFont("helvetica", "normal");
+            doc.text("Nill", 50, 82);
+            doc.setFont("helvetica", "bold");
+            doc.text("Company Address :", 100, 60 );
+            doc.setFont("helvetica", "normal");
+            doc.text("Nill", 145, 60 );
+            doc.setFontSize(18);
+            const head = [['#', 'Description', 'Qty', 'Amount', 'Gst']];
+            const body = [
+                ['1', 'Web delelopment ', 5, '40000', '200000'],
+                ['', ' ', , '', ''],
+                ['', ' ', , '', ''],
+                ['', ' ', , '', ''],
+                ['', ' ', , '', ''],
+                ['', ' ', , '', ''],
+                ['', ' ', , '', ''],
+                ['', ' ', , '', ''],
+                ['', ' ', , '', ''],
+                ['', ' ', , '', ''],
+                ['', ' ', , '', ''],
+            ];
+            // for (let index = 0; index < body.length; index++) {
+            //     if (index>=8) {
+            //         body.push(['','','','','']);
+            //     }
+            // }
+            // Set Image Opacity to 50%
+            const imgBase64 = 'data:image/jpeg;base64,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';
+
+            doc.setGState(new doc.GState({ opacity: 0.4 }));//add opacity
+            doc.addImage(imgBase64, 'PNG', 25, 100, doc.internal.pageSize.width-40, 60);
+            doc.setGState(new doc.GState({ opacity: 1 }));//reset opacity
+            // console.log(doc.setGState);
+
+            doc.addImage(imgBase64, 'PNG', 10, 10, 50, 40);
+
+            // Calculate total
+            var total = 0;
+            for (let i = 0; i < body.length; i++) {
+                total += Number(body[i][4]);
+                //  total += 1;
+            }
+            // const gst = total * 18 / 100;
+            var gst = 0;
+            var i = 1;
+            const updatedBody = body.map(row => {
+                if (row[4]) {
+                    row[4] = [];
+                    gst = parseFloat(row[3]*18/100);
+                    row[0] = i++;
+                    // row[4]=parseFloat(row[3]);
+                    row[4]=parseFloat(row[3])+parseFloat(gst);
+                    row[4]=row[4].toFixed(2);
+                    row[4]= 'INR '+row[4];   
+                    console.log(row[4]);
+                    // row[4].push(row[4]);
+                } else {
+                    row[4] = row[4]
+                }
+                if (row[3]) {
+                    row[3] ='INR '+parseFloat(row[3]).toFixed(2);
+                } else {
+                    row[3] = row[3]
+                }
+                return row;
+            });
+ 
+            // Add table using AutoTable
+            doc.autoTable({
+                startY: 90,
+                head: head,
+                body: updatedBody,
+                theme: 'grid',
+                styles: { fontSize: 10, lineWidth: 0, },
+                headStyles: { fillColor: [20, 16, 13] },
+                margin: { top: 10 },
+  bodyStyles: {
+    fillColor: null  // Set transparent background for the body rows
+  },
+                columnStyles: {
+                    0: {
+                        halign: 'center',
+                        cellWidth: 10,
+                        // fillColor: [232, 252, 245],
+                    },
+                    1: {
+                        halign: 'left',
+                        cellWidth: 120,
+                        // fillColor: [232, 252, 245],
+                    },
+                    2: {
+                        halign: 'center',
+                        cellWidth: 10,
+                        // fillColor: [232, 252, 245],
+                    },
+                    3: {
+                        halign: 'center',
+                        cellWidth: 25,
+                        // fillColor: [232, 252, 245],
+                    },
+                    4: {
+                        halign: 'center',
+                        cellWidth: 25,
+                        // fillColor: [232, 252, 245],
+                    }
+                },
+                didDrawCell: (data) => {
+                    const cell = data.cell;
+                    doc.setDrawColor(0, 0, 0);
+                    // Draw left border
+                    doc.line(cell.x, cell.y, cell.x, cell.y + cell.height);
+                    // Draw right border
+                    doc.line(cell.x + cell.width, cell.y, cell.x + cell.width, cell.y + cell.height);
+                    //Draw end border
+                    // doc.line();
+                    // doc.line(14, 130, 190, 130);
+
+                },
+                
+
+            });   
+            // doc.setGState(new doc.GState({ opacity: 0.5 }));//add opacity
+            // doc.addImage(imgBase64, 'PNG', 60, doc.lastAutoTable.finalY - 50, 80, 40);
+            // doc.setGState(new doc.GState({ opacity: 1 }));//reset opacity
+
+            doc.setDrawColor(0, 0, 0);
+
+            doc.line(14, doc.lastAutoTable.finalY, 204, doc.lastAutoTable.finalY);
+            doc.setFontSize(12);
+            //  total = "$72.50";
+            const finalY = doc.lastAutoTable.finalY; // Y position after the table
+            doc.text(`Sub Total: INR ${total=parseFloat(total+total*18/100).toFixed(2)} `, 200, finalY + 5, { align: "right" });
+            // doc.setLineWidth(0.5); // Adjust line width if needed
+            doc.line(174, finalY + 6, 200, finalY + 6); // x1, y1, x2, y2
+            doc.text(`Advance: INR ${total=parseFloat(total / 2).toFixed(2)} `, 200, finalY + 10, { align: "right" });
+            doc.line(174, finalY + 11, 200, finalY + 11); // x1, y1, x2, y2
+            doc.text(`Total: INR ${total=parseFloat(total).toFixed(2)} `, 200, finalY + 15, { align: "right" });
+            doc.line(174, finalY + 16, 200, finalY + 16); // x1, y1, x2, y2
+            doc.text(`REMARKS / PAYMENT INSTRUCTIONS`, 7, finalY + 35,);
+            doc.setFontSize(10);
+            doc.text(`For Nutz Technovation Private Limted`, 135, finalY + 35,);
+            doc.setFontSize(12);
+            doc.text(`GOWTHAM KRISHNAMOORTHYS`, 130, finalY + 40,);
+            doc.setFontSize(10);
+            doc.text(`MANAGING DIRECTOR`, 140, finalY + 45);
+            doc.setFontSize(10);
+            doc.text(`1.We accept payments through CASH/IMPS/RTGS/UPI`, 7, finalY + 40,);
+            doc.text(`2.Paid amount will not be refunded`, 7, finalY + 45,);
+            doc.text(`3. This is a system-generated bill. Signature not required`, 7, finalY + 50,);
+            doc.setFontSize(10);
+            //             var d=btoa('c:/Users/Admin/Desktop/nutz.png');
+            //             d='data:image/jpeg;base64,'+d; 
+            //             console.log(d);
+            //             // Load image
+            // doc.addImage(d, 'PNG', 30, 30, 180, 160); // x, y, width, height
+            // Set Fill Color to Light Blue and Add a Rectangle
+            // Footer
+            // doc.text("Thank you for your business!", 105, doc.internal.pageSize.height - 5, { align: "center" });
+            doc.setFillColor(195, 195, 195); // RGB for light blue
+            doc.rect(0, doc.internal.pageSize.height - 20, 220, 20, 'F'); // 'F' for fill
+            doc.text(`LOGO | PRINT MEDIA | WEBSITES | APPS | SOFTWARES | BRANDING | DIGITAL MARKETING | BULK SMS | VIDEO ADS`, 7, doc.internal.pageSize.height - 12);
+            doc.setFillColor(0, 0, 0); // RGB for light blue
+            doc.rect(0, doc.internal.pageSize.height - 10, 220, 10, 'F'); // 'F' for fill
+            // Save the PDF
+            // doc.save("invoice.pdf");
+
+
+// // Define the output path
+// const folderPath = path.join(__dirname, 'desiredFolder'); // Replace 'desiredFolder' with your folder
+// const filePath = path.join(folderPath, 'table_output.pdf');
+
+// // Check if the folder exists, if not, create it
+// if (!fs.existsSync(folderPath)) {
+//   fs.mkdirSync(folderPath, { recursive: true });
+// }
+
+// Save the PDF to the specified path
+doc.save("invoice.pdf");
+
+// console.log(`PDF saved to: ${filePath}`);
+        });
+    </script>
+</body>
+
+</html>
